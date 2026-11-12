@@ -1,0 +1,203 @@
+{
+  "config": {
+    "clubName": "INSANOS M.C.",
+    "division": "DIVISÃO MOGI GUAÇU",
+    "motto": "SOMOS DE VERDADE",
+    "memberPassword": "ISSI",
+    "adminPasswordHash": "diretoriamg"
+  },
+  "members": [
+    {
+      "id": 1,
+      "name": "Osiel",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.269Z"
+    },
+    {
+      "id": 2,
+      "name": "Luna",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 3,
+      "name": "Campos",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 4,
+      "name": "Jimmy",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 5,
+      "name": "Nil",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 6,
+      "name": "Ribeiro",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 7,
+      "name": "Jão",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 8,
+      "name": "Perina",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 9,
+      "name": "Radical",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 10,
+      "name": "Marcel",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 11,
+      "name": "Morais",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 12,
+      "name": "Fião",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 13,
+      "name": "Vitorino",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 14,
+      "name": "Marlboro",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 15,
+      "name": "Pedro",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 16,
+      "name": "Duzão",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 17,
+      "name": "E. Ribeiro",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 18,
+      "name": "Campardo",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    },
+    {
+      "id": 19,
+      "name": "Fabião",
+      "nickname": "",
+      "active": true,
+      "createdAt": "2026-11-12T11:41:35.286Z"
+    }
+  ],
+  "nextMemberId": 20,
+  "events": [
+    {
+      "id": 1,
+      "divisionHeader": "INSANOS M.C. – DIVISÃO MOGI GUAÇU",
+      "title": "1º Insanos Fest – Extrema/MG",
+      "date": "2026-11-14",
+      "dateFormatted": "Sábado – 14 de novembro de 2026",
+      "time": "A partir das 14:00",
+      "location": "Vila Mineira Open Mall e Gastronomia - Extrema/MG",
+      "category": "Evento Oficial",
+      "description": "Encontro de Motoclubes + Festival de Rock\n\nProgramação com bandas, gastronomia e espaço para as famílias.",
+      "status": "active",
+      "createdAt": "2026-11-12T11:41:35.286Z",
+      "attendances": {
+        "1": {
+          "status": "yes",
+          "reason": "",
+          "updatedAt": "2026-11-12T15:09:50.329Z"
+        },
+        "2": {
+          "status": "no",
+          "reason": "Social + Sede",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        },
+        "5": {
+          "status": "no",
+          "reason": "Trabalho",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        },
+        "13": {
+          "status": "maybe",
+          "reason": "",
+          "updatedAt": "2026-11-12T13:14:27.348Z"
+        },
+        "14": {
+          "status": "no",
+          "reason": "social + sede",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        },
+        "16": {
+          "status": "no",
+          "reason": "Social+Sede",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        },
+        "17": {
+          "status": "no",
+          "reason": "Social + Sede",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        },
+        "19": {
+          "status": "no",
+          "reason": "social + trabalho",
+          "updatedAt": "2026-11-12T11:41:35.286Z"
+        }
+      }
+    }
+  ],
+  "nextEventId": 2
+}

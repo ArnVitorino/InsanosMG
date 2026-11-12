@@ -1,0 +1,31 @@
+{
+  "name": "insanos-mc-confirmacao",
+  "version": "1.0.0",
+  "description": "Sistema de Confirmação de Presença e Escalas - INSANOS M.C.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "npm --prefix client install && npm --prefix client run build",
+    "dev:server": "node server/index.js",
+    "dev:client": "npm --prefix client run dev"
+  },
+  "keywords": [
+    "insanos-mc",
+    "motoclube",
+    "presenca",
+    "eventos"
+  ],
+  "author": "INSANOS M.C.",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "mongodb": "^7.8.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "vercel": "^65.15.0"
+  }
+}

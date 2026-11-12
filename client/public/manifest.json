@@ -1,0 +1,26 @@
+{
+  "name": "INSANOS M.C. - Divisão Mogi Guaçu",
+  "short_name": "Insanos MC",
+  "description": "Aplicativo Oficial de Confirmação de Presença e Escalas - INSANOS M.C.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0c0e",
+  "theme_color": "#0b0c0e",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/bg-insanos.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
+
