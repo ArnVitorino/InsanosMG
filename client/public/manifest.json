@@ -16,11 +16,10 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/bg-insanos.jpg",
+      "src": "/app-icon.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
     }
   ]
 }
-

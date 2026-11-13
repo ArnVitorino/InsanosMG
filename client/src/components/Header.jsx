@@ -19,9 +19,9 @@ export function Header({
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-red-600 shadow-lg shadow-red-950/60 flex-shrink-0 bg-black flex items-center justify-center">
             <img 
-              src="/bg-insanos.jpg" 
+              src="/app-icon.jpg" 
               alt="INSANOS M.C." 
-              className="w-full h-full object-cover object-[center_28%] scale-150" 
+              className="w-full h-full object-contain p-0.5" 
             />
           </div>
           <div>
