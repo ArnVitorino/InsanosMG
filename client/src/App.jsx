@@ -108,11 +108,18 @@ export function App() {
     <div className="min-h-screen bg-[#0b0c0e] text-neutral-100 flex flex-col font-sans selection:bg-red-700 selection:text-white relative">
       {/* Background Oficial Insanos M.C. Divisão Mogi Guaçu */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Versão Horizontal Widescreen em Computador/Tablet (md+) */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 sm:opacity-25 filter contrast-125"
+          className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 filter contrast-110 brightness-105"
+          style={{ backgroundImage: "url('/bg-insanos-wide.jpg')" }}
+        />
+        {/* Versão Vertical em Celular (mobile) para encaixe perfeito em pé */}
+        <div 
+          className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 filter contrast-110 brightness-105"
           style={{ backgroundImage: "url('/bg-insanos.jpg')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0c0e]/90 via-[#0b0c0e]/80 to-[#0b0c0e]/95" />
+        {/* Vinheta suave para integração elegante com o conteúdo */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0c10]/45 via-transparent to-[#0b0c10]/70" />
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">

@@ -151,9 +151,9 @@ export function CalendarView({
           </div>
 
           {/* Days of week header */}
-          <div className="grid grid-cols-7 gap-1 text-center py-2 text-[11px] font-bold uppercase tracking-wider text-neutral-500 border-b border-neutral-800/60">
+          <div className="grid grid-cols-7 gap-1 text-center py-2 text-[11px] font-bold uppercase tracking-wider text-neutral-300 border-b border-neutral-700">
             {daysOfWeek.map((day, idx) => (
-              <div key={day} className={idx === 0 || idx === 6 ? 'text-red-400/80' : ''}>
+              <div key={day} className={idx === 0 || idx === 6 ? 'text-red-400 font-extrabold' : ''}>
                 {day}
               </div>
             ))}
@@ -166,7 +166,7 @@ export function CalendarView({
                 return (
                   <div
                     key={`empty-${idx}`}
-                    className="min-h-[64px] md:min-h-[84px] p-1.5 rounded-lg bg-neutral-950/30 text-neutral-700 text-xs font-mono select-none"
+                    className="min-h-[64px] md:min-h-[84px] p-1.5 rounded-lg bg-neutral-900/40 border border-neutral-800/80 text-neutral-500 text-xs font-mono select-none"
                   >
                     <span>{cell.day}</span>
                   </div>
@@ -182,10 +182,10 @@ export function CalendarView({
                   onClick={() => setSelectedDateStr(cell.dateStr)}
                   className={`min-h-[64px] md:min-h-[84px] p-1.5 rounded-xl cursor-pointer transition flex flex-col justify-between border ${
                     isSelected
-                      ? 'bg-red-950/40 border-red-500 shadow-md shadow-red-950/60'
+                      ? 'bg-red-950/60 border-red-500 shadow-md shadow-red-950/80'
                       : hasEv
-                      ? 'bg-neutral-900 border-red-900/60 hover:border-red-600'
-                      : 'bg-[#0e0f13] border-neutral-800/80 hover:border-neutral-700'
+                      ? 'bg-neutral-800/90 border-red-500/80 hover:border-red-400'
+                      : 'bg-[#181b24] border-neutral-700 hover:border-neutral-500'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -194,8 +194,8 @@ export function CalendarView({
                         isSelected
                           ? 'text-red-400 font-black'
                           : hasEv
-                          ? 'text-white'
-                          : 'text-neutral-400'
+                          ? 'text-white font-black'
+                          : 'text-neutral-200 font-bold'
                       }`}
                     >
                       {cell.day}

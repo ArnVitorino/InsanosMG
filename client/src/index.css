@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  background-color: #0b0c0e;
+  background-color: #0d0e13;
   color: #f3f4f6;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,25 +22,87 @@ body {
   background: #14161a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #323742;
+  background: #525869;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #dc2626;
+  background: #ef4444;
 }
 
-/* Metallic / Leather Accent borders */
+/* Bordas metálicas / táticas mais claras e cartões iluminados */
 .biker-border {
-  border: 1px solid rgba(220, 38, 38, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  background-color: rgba(24, 27, 36, 0.92) !important;
+  box-shadow: 0 10px 36px 0 rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(239, 68, 68, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 .biker-glow {
-  box-shadow: 0 0 15px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.50);
 }
 
 .biker-gold {
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.40);
+}
+
+/* Aumento geral de claridade nas bordas para alto contraste no site */
+.border-neutral-900 {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.border-neutral-800 {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.border-neutral-700 {
+  border-color: rgba(255, 255, 255, 0.30) !important;
+}
+
+.border-neutral-600 {
+  border-color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.border-red-950 {
+  border-color: rgba(239, 68, 68, 0.48) !important;
+}
+
+.border-red-900 {
+  border-color: rgba(239, 68, 68, 0.60) !important;
+}
+
+.border-red-800 {
+  border-color: rgba(239, 68, 68, 0.72) !important;
+}
+
+/* Clareamento dos fundos de cartões e blocos para deixar o layout mais claro e visível */
+.bg-\[\#14151a\] {
+  background-color: rgba(25, 28, 38, 0.92) !important;
+}
+
+.bg-\[\#15161c\] {
+  background-color: rgba(28, 32, 44, 0.94) !important;
+}
+
+.bg-\[\#131418\] {
+  background-color: rgba(23, 26, 36, 0.90) !important;
+}
+
+.bg-\[\#0e0f13\] {
+  background-color: rgba(22, 25, 35, 0.90) !important;
+}
+
+.bg-\[\#0c0d10\] {
+  background-color: rgba(19, 22, 31, 0.96) !important;
+}
+
+.bg-\[\#0d0e12\] {
+  background-color: rgba(24, 28, 38, 0.96) !important;
+}
+
+/* Cartões com acabamento nítido e borda em destaque */
+.biker-card {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: linear-gradient(180deg, rgba(32, 36, 48, 0.96) 0%, rgba(22, 25, 34, 0.96) 100%);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
