@@ -29,6 +29,15 @@ export const api = {
     return res.json();
   },
 
+  changeMemberPassword: async (adminPassword, newPassword) => {
+    const res = await fetch(`${API_BASE}/auth/change-member-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPassword, newPassword })
+    });
+    return res.json();
+  },
+
   // Config
   getConfig: async () => {
     const res = await fetch(`${API_BASE}/config`);
@@ -132,6 +141,28 @@ export const api = {
 
   getWhatsAppText: async (eventId) => {
     const res = await fetch(`${API_BASE}/events/${eventId}/whatsapp`);
+    return res.json();
+  },
+
+  // Event Photos (Galeria)
+  getEventPhotos: async (eventId) => {
+    const res = await fetch(`${API_BASE}/events/${eventId}/photos`);
+    return res.json();
+  },
+
+  addEventPhotos: async (eventId, photos) => {
+    const res = await fetch(`${API_BASE}/events/${eventId}/photos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ photos })
+    });
+    return res.json();
+  },
+
+  deleteEventPhoto: async (eventId, photoId) => {
+    const res = await fetch(`${API_BASE}/events/${eventId}/photos/${photoId}`, {
+      method: 'DELETE'
+    });
     return res.json();
   },
 

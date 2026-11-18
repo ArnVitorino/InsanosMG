@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, ShieldAlert, Key, LogOut, Settings, Calendar, Users, CheckSquare, Sparkles } from 'lucide-react';
+import { Shield, ShieldAlert, Key, LogOut, Settings, Calendar, Users, CheckSquare, Sparkles, Camera } from 'lucide-react';
 import { InstallAppButton } from './InstallAppButton';
 
 export function Header({ 
@@ -12,12 +12,12 @@ export function Header({
   setActiveTab 
 }) {
   return (
-    <header className="bg-gradient-to-b from-[#18191e] to-[#0f1013] border-b border-red-950/60 sticky top-0 z-40 shadow-xl">
+    <header className="bg-gradient-to-b from-[#18191e] to-[#0f1013] border-b border-amber-900/60 sticky top-0 z-40 shadow-xl">
       {/* Top Bar with division banner */}
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
         {/* Logo & Title */}
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-red-600 shadow-lg shadow-red-950/60 flex-shrink-0 bg-black flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500 shadow-lg shadow-amber-950/60 flex-shrink-0 bg-black flex items-center justify-center">
             <img 
               src="/app-icon.jpg" 
               alt="INSANOS M.C." 
@@ -26,10 +26,10 @@ export function Header({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg md:text-xl font-black tracking-wider text-red-500 uppercase drop-shadow">
+              <h1 className="text-lg md:text-xl font-black tracking-wider text-white uppercase drop-shadow-md">
                 {config.clubName || "INSANOS M.C."}
               </h1>
-              <span className="text-xs px-2 py-0.5 rounded bg-red-950/80 text-red-300 border border-red-800/60 font-semibold tracking-wide">
+              <span className="text-xs px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-600/70 font-semibold tracking-wide">
                 {config.division || "DIVISÃO MOGI GUAÇU"}
               </span>
             </div>
@@ -44,8 +44,8 @@ export function Header({
           <InstallAppButton />
           {auth.role === 'admin' ? (
             <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1.5 px-3 py-1 bg-red-900/60 text-red-200 border border-red-700 rounded-full text-xs font-bold tracking-wide shadow-sm">
-                <ShieldAlert className="w-3.5 h-3.5 text-red-400" />
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-amber-950/90 text-amber-300 border border-amber-600 rounded-full text-xs font-bold tracking-wide shadow-sm">
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
                 DIRETORIA (ADMIN)
               </span>
               <button
@@ -86,7 +86,7 @@ export function Header({
           ) : (
             <button
               onClick={onOpenLogin}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs uppercase tracking-wider transition shadow-md shadow-red-950"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-black font-extrabold rounded-lg text-xs uppercase tracking-wider transition shadow-md shadow-amber-950"
             >
               <Key className="w-3.5 h-3.5" />
               Entrar
@@ -101,7 +101,7 @@ export function Header({
           onClick={() => setActiveTab('calendar')}
           className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold tracking-wide transition border-b-2 whitespace-nowrap ${
             activeTab === 'calendar'
-              ? 'border-red-600 text-red-400 bg-red-950/20'
+              ? 'border-amber-500 text-amber-400 bg-amber-950/30'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
           }`}
         >
@@ -113,7 +113,7 @@ export function Header({
           onClick={() => setActiveTab('attend')}
           className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold tracking-wide transition border-b-2 whitespace-nowrap ${
             activeTab === 'attend'
-              ? 'border-red-600 text-red-400 bg-red-950/20'
+              ? 'border-amber-500 text-amber-400 bg-amber-950/30'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
           }`}
         >
@@ -125,12 +125,24 @@ export function Header({
           onClick={() => setActiveTab('roster')}
           className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold tracking-wide transition border-b-2 whitespace-nowrap ${
             activeTab === 'roster'
-              ? 'border-red-600 text-red-400 bg-red-950/20'
+              ? 'border-amber-500 text-amber-400 bg-amber-950/30'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
           }`}
         >
           <Users className="w-4 h-4" />
           Lista & WhatsApp
+        </button>
+
+        <button
+          onClick={() => setActiveTab('photos')}
+          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold tracking-wide transition border-b-2 whitespace-nowrap ${
+            activeTab === 'photos'
+              ? 'border-amber-500 text-amber-400 bg-amber-950/30'
+              : 'border-transparent text-neutral-400 hover:text-neutral-200'
+          }`}
+        >
+          <Camera className="w-4 h-4" />
+          Fotos dos Eventos
         </button>
 
         {auth.role === 'admin' && (

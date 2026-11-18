@@ -8,7 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Helper function to format WhatsApp text
 function generateWhatsAppText(event, members) {
@@ -144,6 +145,30 @@ app.post('/api/auth/change-admin-password', async (req, res) => {
   await saveDb(db);
 
   return res.json({ success: true, message: 'Senha de Administrador alterada com sucesso!' });
+});
+
+// Change member password (authorized by Diretoria admin password)
+app.post('/api/auth/change-member-password', async (req, res) => {
+  const { adminPassword, newPassword } = req.body;
+  const db = await getDb();
+  const currentAdminPass = db.config.adminPasswordHash || 'diretoriamg';
+
+  if (!adminPassword || adminPassword !== currentAdminPass) {
+    return res.status(401).json({ success: false, message: 'Senha da Diretoria incorreta.' });
+  }
+
+  if (!newPassword || newPassword.trim().length < 2) {
+    return res.status(400).json({ success: false, message: 'A nova senha deve ter pelo menos 2 caracteres.' });
+  }
+
+  db.config.memberPassword = newPassword.trim();
+  await saveDb(db);
+
+  return res.json({ 
+    success: true, 
+    message: 'Senha dos Irmãos alterada com sucesso!',
+    memberPassword: db.config.memberPassword 
+  });
 });
 
 // ---------------- CONFIG ROUTES ---------------- //
@@ -294,6 +319,8 @@ app.get('/api/events', async (req, res) => {
       location: ev.location,
       category: ev.category,
       description: ev.description,
+      imageUrl: ev.imageUrl || '',
+      photosCount: (ev.photos || []).length,
       status: ev.status || 'active',
       createdAt: ev.createdAt,
       stats: {
@@ -348,7 +375,7 @@ app.get('/api/events/:id', async (req, res) => {
 
 // Create event (admin)
 app.post('/api/events', async (req, res) => {
-  const { title, divisionHeader, date, dateFormatted, time, location, category, description } = req.body;
+  const { title, divisionHeader, date, dateFormatted, time, location, category, description, imageUrl } = req.body;
 
   if (!title || !date) {
     return res.status(400).json({ error: 'Título e data do evento são obrigatórios' });
@@ -367,6 +394,8 @@ app.post('/api/events', async (req, res) => {
     location: location ? location.trim() : "",
     category: category ? category.trim() : "Evento Oficial",
     description: description ? description.trim() : "",
+    imageUrl: imageUrl ? imageUrl.trim() : "",
+    photos: [],
     status: 'active',
     createdAt: new Date().toISOString(),
     attendances: {}
@@ -387,7 +416,7 @@ app.put('/api/events/:id', async (req, res) => {
     return res.status(404).json({ error: 'Evento não encontrado' });
   }
 
-  const { title, divisionHeader, date, dateFormatted, time, location, category, description, status } = req.body;
+  const { title, divisionHeader, date, dateFormatted, time, location, category, description, imageUrl, status } = req.body;
 
   if (title !== undefined) event.title = title.trim();
   if (divisionHeader !== undefined) event.divisionHeader = divisionHeader.trim();
@@ -397,6 +426,7 @@ app.put('/api/events/:id', async (req, res) => {
   if (location !== undefined) event.location = location.trim();
   if (category !== undefined) event.category = category.trim();
   if (description !== undefined) event.description = description.trim();
+  if (imageUrl !== undefined) event.imageUrl = imageUrl.trim();
   if (status !== undefined) event.status = status;
 
   await saveDb(db);
@@ -416,6 +446,83 @@ app.delete('/api/events/:id', async (req, res) => {
   const removed = db.events.splice(index, 1)[0];
   await saveDb(db);
   res.json({ success: true, removed });
+});
+
+// ---------------- EVENT PHOTOS ROUTES ---------------- //
+// Get all photos of an event
+app.get('/api/events/:id/photos', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const db = await getDb();
+  const event = db.events.find(e => e.id === id);
+  if (!event) {
+    return res.status(404).json({ error: 'Evento não encontrado' });
+  }
+  res.json(event.photos || []);
+});
+
+// Add photos to an event (Brothers or Diretoria)
+app.post('/api/events/:id/photos', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { photos } = req.body;
+
+  if (!photos) {
+    return res.status(400).json({ error: 'Nenhuma foto enviada' });
+  }
+
+  const db = await getDb();
+  const event = db.events.find(e => e.id === id);
+  if (!event) {
+    return res.status(404).json({ error: 'Evento não encontrado' });
+  }
+
+  if (!event.photos) {
+    event.photos = [];
+  }
+
+  const photosToAdd = Array.isArray(photos) ? photos : [photos];
+  const newPhotos = [];
+
+  for (const p of photosToAdd) {
+    if (p.dataUrl) {
+      const photoItem = {
+        id: `photo_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+        dataUrl: p.dataUrl,
+        caption: p.caption ? String(p.caption).trim() : '',
+        uploaderName: p.uploaderName ? String(p.uploaderName).trim() : 'Irmão',
+        uploadedAt: new Date().toISOString()
+      };
+      event.photos.unshift(photoItem); // Newest photos first
+      newPhotos.push(photoItem);
+    }
+  }
+
+  await saveDb(db);
+  res.status(201).json({ success: true, added: newPhotos, total: event.photos.length });
+});
+
+// Delete a photo from an event
+app.delete('/api/events/:id/photos/:photoId', async (req, res) => {
+  const eventId = parseInt(req.params.id, 10);
+  const photoId = req.params.photoId;
+
+  const db = await getDb();
+  const event = db.events.find(e => e.id === eventId);
+  if (!event) {
+    return res.status(404).json({ error: 'Evento não encontrado' });
+  }
+
+  if (!event.photos) {
+    return res.status(404).json({ error: 'Foto não encontrada' });
+  }
+
+  const index = event.photos.findIndex(p => p.id === photoId);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Foto não encontrada' });
+  }
+
+  const removed = event.photos.splice(index, 1)[0];
+  await saveDb(db);
+  res.json({ success: true, removed, total: event.photos.length });
 });
 
 // Member or Admin confirms attendance

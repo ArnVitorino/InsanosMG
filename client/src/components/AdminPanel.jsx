@@ -28,6 +28,9 @@ export function AdminPanel({
   const [currentAdminPass, setCurrentAdminPass] = useState('');
   const [newAdminPass, setNewAdminPass] = useState('');
   const [passwordMsg, setPasswordMsg] = useState(null);
+  const [newMemberPass, setNewMemberPass] = useState('');
+  const [adminConfirmForMemberPass, setAdminConfirmForMemberPass] = useState('');
+  const [memberPasswordMsg, setMemberPasswordMsg] = useState(null);
   const [configMsg, setConfigMsg] = useState(null);
   const [dbStatus, setDbStatus] = useState(null);
   const [loadingDbStatus, setLoadingDbStatus] = useState(false);
@@ -163,6 +166,31 @@ export function AdminPanel({
     }
   };
 
+  const handleChangeMemberPassword = async (e) => {
+    e.preventDefault();
+    if (!adminConfirmForMemberPass || !newMemberPass) {
+      setMemberPasswordMsg({ type: 'error', text: 'Preencha a nova senha e sua senha de Diretoria.' });
+      return;
+    }
+
+    try {
+      const res = await api.changeMemberPassword(adminConfirmForMemberPass, newMemberPass);
+      if (res.success) {
+        setMemberPasswordMsg({ 
+          type: 'success', 
+          text: `✓ Senha dos Irmãos alterada com sucesso para "${res.memberPassword}"!` 
+        });
+        setAdminConfirmForMemberPass('');
+        setNewMemberPass('');
+        setTimeout(() => setMemberPasswordMsg(null), 5000);
+      } else {
+        setMemberPasswordMsg({ type: 'error', text: res.message || 'Erro ao alterar senha dos irmãos.' });
+      }
+    } catch (err) {
+      setMemberPasswordMsg({ type: 'error', text: 'Erro ao conectar ao servidor.' });
+    }
+  };
+
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Top Banner */}
@@ -188,7 +216,7 @@ export function AdminPanel({
           onClick={() => setActiveTab('events')}
           className={`py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition flex items-center justify-center gap-1.5 ${
             activeTab === 'events'
-              ? 'bg-amber-600 text-white shadow-md shadow-amber-950'
+              ? 'bg-amber-600 text-black font-extrabold shadow-md shadow-amber-950'
               : 'text-neutral-400 hover:text-white'
           }`}
         >
@@ -200,7 +228,7 @@ export function AdminPanel({
           onClick={() => setActiveTab('members')}
           className={`py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition flex items-center justify-center gap-1.5 ${
             activeTab === 'members'
-              ? 'bg-amber-600 text-white shadow-md shadow-amber-950'
+              ? 'bg-amber-600 text-black font-extrabold shadow-md shadow-amber-950'
               : 'text-neutral-400 hover:text-white'
           }`}
         >
@@ -212,7 +240,7 @@ export function AdminPanel({
           onClick={() => setActiveTab('settings')}
           className={`py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition flex items-center justify-center gap-1.5 ${
             activeTab === 'settings'
-              ? 'bg-amber-600 text-white shadow-md shadow-amber-950'
+              ? 'bg-amber-600 text-black font-extrabold shadow-md shadow-amber-950'
               : 'text-neutral-400 hover:text-white'
           }`}
         >
@@ -230,7 +258,7 @@ export function AdminPanel({
             </h3>
             <button
               onClick={() => onOpenCreateEvent()}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition shadow-md shadow-red-950"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-black rounded-lg text-xs font-extrabold uppercase tracking-wider transition shadow-md shadow-amber-950"
             >
               <Plus className="w-4 h-4" />
               Novo Evento
@@ -309,7 +337,7 @@ export function AdminPanel({
               <button
                 type="submit"
                 disabled={savingMember}
-                className="py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition"
+                className="py-2 bg-amber-600 hover:bg-amber-500 text-black rounded-lg text-xs font-extrabold uppercase tracking-wider transition shadow-md shadow-amber-950"
               >
                 {savingMember ? 'Salvando...' : 'Adicionar Integrante'}
               </button>
@@ -528,10 +556,70 @@ export function AdminPanel({
 
             <button
               type="submit"
-              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5"
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-black rounded-lg text-xs font-extrabold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-amber-950"
             >
               <Save className="w-3.5 h-3.5" />
               Salvar Alterações
+            </button>
+          </form>
+
+          {/* Change Member Password (Irmãos) */}
+          <form onSubmit={handleChangeMemberPassword} className="bg-[#14151a] border border-amber-900/60 rounded-xl p-5 biker-border space-y-4">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-amber-400 flex items-center gap-1.5 font-bold">
+                <Users className="w-4 h-4 text-amber-500" />
+                Alterar Senha Geral de Acesso dos Irmãos
+              </h4>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-amber-950/70 border border-amber-600/50 text-amber-300 font-mono">
+                Lembrada por 7 dias
+              </span>
+            </div>
+
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Defina a senha que todos os irmãos da divisão usarão para entrar no sistema. 
+              Após digitada no celular ou computador, o aparelho permanece conectado por <strong className="text-amber-300">7 dias</strong> automaticamente.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[11px] font-mono text-neutral-400 uppercase mb-1">
+                  Nova Senha dos Irmãos:
+                </label>
+                <input
+                  type="text"
+                  value={newMemberPass}
+                  onChange={(e) => setNewMemberPass(e.target.value)}
+                  placeholder="Ex: ISSI ou nova senha"
+                  className="w-full px-3 py-2 bg-[#0c0d10] border border-neutral-700 rounded-lg text-white text-xs font-mono tracking-wider uppercase focus:border-amber-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-mono text-neutral-400 uppercase mb-1">
+                  Sua Senha de Diretoria (Confirmação):
+                </label>
+                <input
+                  type="password"
+                  value={adminConfirmForMemberPass}
+                  onChange={(e) => setAdminConfirmForMemberPass(e.target.value)}
+                  placeholder="Digite sua senha de admin"
+                  className="w-full px-3 py-2 bg-[#0c0d10] border border-neutral-700 rounded-lg text-white text-xs focus:border-amber-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {memberPasswordMsg && (
+              <p className={`text-xs ${memberPasswordMsg.type === 'success' ? 'text-emerald-400 font-bold' : 'text-red-400'}`}>
+                {memberPasswordMsg.text}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-black rounded-lg text-xs font-extrabold uppercase tracking-wider transition shadow-md shadow-amber-950/60 flex items-center gap-1.5"
+            >
+              <Key className="w-3.5 h-3.5" />
+              Salvar Nova Senha dos Irmãos
             </button>
           </form>
 

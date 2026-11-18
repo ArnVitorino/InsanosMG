@@ -81,10 +81,10 @@ export function RosterList({
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       {/* Event Header & WhatsApp Action Card */}
-      <div className="bg-gradient-to-b from-[#181920] to-[#121317] border border-red-950/80 rounded-2xl p-5 md:p-6 shadow-2xl biker-border space-y-4">
+      <div className="bg-gradient-to-b from-[#181920] to-[#121317] border border-amber-950/80 rounded-2xl p-5 md:p-6 shadow-2xl biker-border space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800 pb-3">
           <div>
-            <span className="text-[11px] font-mono text-red-400 uppercase tracking-widest font-bold">
+            <span className="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-bold">
               {activeEvent?.divisionHeader || "INSANOS M.C. – DIVISÃO MOGI GUAÇU"}
             </span>
             <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-wide">
@@ -100,7 +100,7 @@ export function RosterList({
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeEvent.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-red-950/80 hover:bg-red-800 text-red-300 hover:text-white border border-red-700 text-[11px] font-mono transition"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-950/80 hover:bg-amber-700 text-amber-300 hover:text-white border border-amber-600 text-[11px] font-mono transition font-semibold"
                 >
                   🗺️ Ver no Maps →
                 </a>
@@ -228,7 +228,7 @@ export function RosterList({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar integrante por nome..."
-              className="w-full pl-9 pr-4 py-2 bg-[#0c0d10] border border-neutral-700 rounded-xl text-white text-xs font-medium focus:outline-none focus:border-red-600 placeholder:text-neutral-500"
+              className="w-full pl-9 pr-4 py-2 bg-[#0c0d10] border border-neutral-700 rounded-xl text-white text-xs font-medium focus:outline-none focus:border-amber-500 placeholder:text-neutral-500"
             />
           </div>
 
@@ -454,7 +454,7 @@ export function RosterList({
                 <button
                   type="submit"
                   disabled={updating}
-                  className="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold uppercase"
+                  className="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-black text-xs font-extrabold uppercase shadow-md shadow-amber-950"
                 >
                   {updating ? 'Gravando...' : 'Salvar Alteração'}
                 </button>

@@ -18,7 +18,8 @@ export function AttendanceView({
   members, 
   eventDetails, 
   onRefresh,
-  onOpenRosterTab 
+  onOpenRosterTab,
+  onOpenPhotosTab
 }) {
   const [selectedMemberId, setSelectedMemberId] = useState(() => {
     return localStorage.getItem('insanos_saved_member_id') || '';
@@ -101,7 +102,7 @@ export function AttendanceView({
           <select
             value={activeEvent?.id || ''}
             onChange={(e) => onSelectEvent(parseInt(e.target.value, 10))}
-            className="bg-[#0b0c0e] border border-neutral-700 text-white rounded-lg px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-red-500"
+            className="bg-[#0b0c0e] border border-neutral-700 text-white rounded-lg px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-amber-500"
           >
             {events.map(ev => (
               <option key={ev.id} value={ev.id}>
@@ -112,14 +113,39 @@ export function AttendanceView({
         </div>
       )}
 
+      {/* Imagem / Cartaz Oficial do Evento no Topo da Página de Confirmação (Opcional) */}
+      {activeEvent?.imageUrl && (
+        <div className="rounded-2xl overflow-hidden border-2 border-amber-500/70 shadow-2xl shadow-black/90 biker-border bg-[#0d0e12] relative group">
+          <img 
+            src={activeEvent.imageUrl} 
+            alt={activeEvent.title}
+            className="w-full max-h-[380px] sm:max-h-[480px] md:max-h-[560px] object-cover object-center transition-transform duration-500 group-hover:scale-[1.01]" 
+          />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
+          <div className="absolute bottom-3 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between gap-2 text-xs font-mono drop-shadow">
+            <span className="bg-black/90 px-3 py-1 rounded-lg border border-amber-500/60 text-amber-300 font-extrabold flex items-center gap-1.5 shadow-lg">
+              📸 Cartaz Oficial do Evento
+            </span>
+            <a 
+              href={activeEvent.imageUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-amber-600 hover:bg-amber-500 text-black px-3 py-1 rounded-lg font-black tracking-wide transition shadow-md shadow-black"
+            >
+              Ver Imagem Completa ↗
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* Event Details Card */}
       {activeEvent && (
-        <div className="bg-gradient-to-b from-[#181920] to-[#121317] border border-red-950/80 rounded-2xl p-5 md:p-6 shadow-2xl biker-border space-y-4">
+        <div className="bg-gradient-to-b from-[#181920] to-[#121317] border border-amber-950/80 rounded-2xl p-5 md:p-6 shadow-2xl biker-border space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800/80 pb-3">
-            <span className="text-xs font-mono text-red-400 uppercase tracking-widest font-bold">
+            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest font-bold">
               {activeEvent.divisionHeader || "INSANOS M.C. – DIVISÃO MOGI GUAÇU"}
             </span>
-            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-red-950/80 text-red-200 border border-red-800 font-mono">
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-950/80 text-amber-200 border border-amber-600/70 font-mono font-bold">
               Chamada Oficial
             </span>
           </div>
@@ -130,25 +156,25 @@ export function AttendanceView({
             </h2>
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-300">
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-red-500 flex-shrink-0" />
+                <Calendar className="w-4 h-4 text-amber-400 flex-shrink-0" />
                 <span className="font-medium">{activeEvent.dateFormatted || activeEvent.date}</span>
               </div>
               {activeEvent.time && (
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-red-500 flex-shrink-0" />
+                  <Clock className="w-4 h-4 text-amber-400 flex-shrink-0" />
                   <span>{activeEvent.time}</span>
                 </div>
               )}
               {activeEvent.location && (
                 <div className="flex items-start gap-2 sm:col-span-2">
-                  <MapPin className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-medium text-neutral-200">{activeEvent.location}</span>
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeEvent.location)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-950/80 hover:bg-red-800 text-red-300 hover:text-white border border-red-700 text-xs font-semibold tracking-wide transition shadow-sm hover:scale-105"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-950/80 hover:bg-amber-700 text-amber-300 hover:text-white border border-amber-600 text-xs font-semibold tracking-wide transition shadow-sm hover:scale-105"
                       title="Abrir rota no Google Maps"
                     >
                       <span>🗺️ Traçar Rota no Google Maps →</span>
@@ -161,7 +187,7 @@ export function AttendanceView({
 
           {activeEvent.description && (
             <div className="p-3 bg-neutral-900/90 rounded-xl border border-neutral-800 text-xs text-neutral-300 whitespace-pre-line font-sans">
-              <span className="font-bold text-red-400 block mb-1">🎸 Detalhes do Evento:</span>
+              <span className="font-bold text-amber-400 block mb-1">🎸 Detalhes do Evento:</span>
               {activeEvent.description}
             </div>
           )}
@@ -201,7 +227,7 @@ export function AttendanceView({
       {/* Confirmation Form */}
       <div className="bg-[#15161c] border border-neutral-800 rounded-2xl p-5 md:p-6 shadow-xl biker-border">
         <h3 className="text-base font-black text-white uppercase tracking-wider flex items-center gap-2 mb-4 border-b border-neutral-800 pb-3">
-          <Check className="w-5 h-5 text-red-500" />
+          <Check className="w-5 h-5 text-amber-400" />
           Registrar sua Confirmação
         </h3>
 
@@ -215,7 +241,7 @@ export function AttendanceView({
               <select
                 value={selectedMemberId}
                 onChange={(e) => setSelectedMemberId(e.target.value)}
-                className="w-full px-4 py-3 bg-[#0c0d10] border border-neutral-700 rounded-xl text-white text-base font-semibold focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 appearance-none cursor-pointer"
+                className="w-full px-4 py-3 bg-[#0c0d10] border border-neutral-700 rounded-xl text-white text-base font-semibold focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 appearance-none cursor-pointer"
               >
                 <option value="">Selecione seu nome na lista...</option>
                 {members.map((member, idx) => (
@@ -345,7 +371,7 @@ export function AttendanceView({
                     onClick={() => setReason(q)}
                     className={`text-xs px-2.5 py-1 rounded-lg border transition ${
                       reason === q
-                        ? 'bg-red-800 text-white border-red-600'
+                        ? 'bg-amber-700 text-black font-extrabold border-amber-500 shadow-sm'
                         : 'bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 border-neutral-700'
                     }`}
                   >
@@ -360,7 +386,7 @@ export function AttendanceView({
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="Ex: Social + Sede, Trabalho, Família..."
-                className="w-full px-3.5 py-2.5 bg-[#08090b] border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-red-600 placeholder:text-neutral-600"
+                className="w-full px-3.5 py-2.5 bg-[#08090b] border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-amber-500 placeholder:text-neutral-600"
               />
             </div>
           )}
@@ -387,7 +413,7 @@ export function AttendanceView({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-red-950/70 disabled:opacity-50"
+            className="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-black font-extrabold rounded-xl uppercase tracking-wider text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-amber-950/70 disabled:opacity-50"
           >
             {submitting ? (
               <span>Gravando resposta...</span>
@@ -401,14 +427,25 @@ export function AttendanceView({
         </form>
       </div>
 
-      {/* Button to view WhatsApp roster */}
-      <div className="text-center pt-2">
+      {/* Button to view WhatsApp roster & Photos */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 text-xs font-mono">
         <button
           onClick={onOpenRosterTab}
-          className="text-xs text-neutral-400 hover:text-red-400 underline font-mono tracking-wider transition"
+          className="text-neutral-400 hover:text-amber-400 underline tracking-wider transition"
         >
-          Visualizar Lista Completa da Divisão & Copiar para WhatsApp →
+          Visualizar Lista Completa & Copiar para WhatsApp →
         </button>
+        {onOpenPhotosTab && (
+          <>
+            <span className="hidden sm:inline text-neutral-600">•</span>
+            <button
+              onClick={onOpenPhotosTab}
+              className="text-amber-400 hover:text-amber-300 font-bold underline tracking-wider transition flex items-center gap-1"
+            >
+              <span>📸 Ver & Anexar Fotos do Evento →</span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

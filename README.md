@@ -1,59 +1,61 @@
-# ☠️ INSANOS M.C. – Sistema de Presença & Eventos
+# ☠️ INSANOS M.C. – Sistema de Presença, Eventos & Galeria (v1.0)
 
-Aplicativo oficial para os irmãos do **INSANOS M.C. – DIVISÃO MOGI GUAÇU** confirmarem presença nos eventos, encontros e responsabilidades postadas pela diretoria.
+Aplicativo oficial para os irmãos do **INSANOS M.C. – DIVISÃO MOGI GUAÇU** confirmarem presença nos eventos, encontros e responsabilidades postadas pela diretoria, além de gerenciar escalas e álbum de fotos.
 
 > *"SOMOS DE VERDADE"*
 
 ---
 
-## ⚡ Como Rodar o Sistema
+## 🚀 Versão 1.0 – Recursos Oficiais
+
+### 🔒 1. Portão de Segurança Frontal & Sessão de 7 Dias
+- **Bloqueio Obrigatório na Entrada**: O sistema só exibe dados (integrantes, calendário, presenças e fotos) após a validação da senha.
+- **Lembrar Aparelho por 7 Dias**: O navegador/celular grava o acesso automaticamente por 7 dias. Após esse período, solicita a senha novamente.
+- **Desconexão Rápida**: Botão "Sair" desloga o aparelho instantaneamente.
+
+### 🔑 2. Gestão de Senhas da Divisão
+- **Acesso dos Irmãos**: Senha padrão inicial `ISSI` (não diferencia maiúsculas de minúsculas).
+- **Acesso da Diretoria**: Senha padrão `diretoriamg`.
+- **Alteração pelo Painel**: A Diretoria pode alterar tanto a senha administrativa quanto a **senha geral dos irmãos** diretamente na aba "Configurações".
+
+### 📸 3. Galeria de Fotos dos Eventos
+- Upload simultâneo de fotos para cada evento.
+- **Compressão Automática no Celular**: Imagens são otimizadas para JPEG (~150KB–250KB) antes do envio, economizando dados e espaço no banco.
+- Visualizador com Lightbox em tela cheia e opção de exclusão pela diretoria.
+- Capa/Flyer oficial opcional no topo da confirmação do evento.
+
+### 📅 4. Calendário & Confirmação de Presença
+- Calendário mensal interativo com destaque de compromissos oficiais.
+- Confirmação em 1 toque:
+  - ✅ **Eu vou.**
+  - ❌ **Não vou.** (com chips rápidos: *"Social + Sede"*, *"Trabalho"*, *"Família"*, etc., e justificativa livre)
+  - ⚠️ **Ainda não sei.**
+- **Exportação para WhatsApp**: Copia a lista diagramada e formatada no padrão oficial do INSANOS M.C. com um clique.
+
+### 🛡️ 5. Painel de Controle da Diretoria
+- Cadastro, edição, inativação e reordenação de integrantes da lista oficial.
+- Criação e edição de eventos e compromissos.
+- Personalização do nome da divisão e lema do motoclube.
+- Monitor de integridade do armazenamento (banco local JSON e suporte a PostgreSQL / MongoDB).
+
+---
+
+## ⚡ Como Rodar o Sistema Localmente
 
 ### Opção 1: Atalho Rápido (Windows)
-Basta dar dois cliques no arquivo **`iniciar.bat`**.
+Dois cliques no arquivo **`iniciar.bat`**.
 
 ### Opção 2: Pelo Terminal
 ```bash
 npm start
 ```
-
-O aplicativo estará rodando em:
+Acesse no navegador:
 👉 **`http://localhost:3001`**
 
-Para que os irmãos acessem pelos seus próprios celulares no mesmo Wi-Fi, basta abrir o navegador do celular e digitar o IP da sua máquina na porta `3001` (ex: `http://192.168.1.100:3001`).
+Para os irmãos acessarem na mesma rede Wi-Fi, digite o IP da sua máquina na porta `3001` (ex: `http://192.168.1.100:3001`).
 
 ---
 
-## 🔑 Níveis de Acesso e Senhas
-
-1. **Acesso dos Integrantes (Irmãos):**
-   - **Senha:** `ISSI` (aceita maiúscula ou minúscula: `issi` ou `ISSI`)
-   - Permite visualizar o calendário de eventos.
-   - Permite selecionar seu próprio nome e confirmar se vai, se não vai (com motivo) ou se ainda não sabe.
-   - Permite visualizar a lista completa e copiar o texto formatado para o WhatsApp com 1 clique.
-
-2. **Acesso da Diretoria (Administrador Geral):**
-   - **Senha Inicial:** `admin123` *(pode ser alterada a qualquer momento no Painel da Diretoria)*
-   - Criar, editar e excluir eventos e compromissos.
-   - Adicionar, editar ou remover integrantes da lista oficial.
-   - Reordenar a numeração da lista (subir/descer integrantes).
-   - Ajustar presenças ou justificativas manualmente a pedido de algum irmão.
-   - Configurar o nome da divisão e lema do motoclube.
-
----
-
-## 📱 Recursos Principais
-
-- 📅 **Calendário Completo de Eventos:**
-  - Visualização mensal interativa com marcação dos dias que têm compromisso oficial.
-  - Exibição de Data, Horário, Local e Programação do evento.
-- 📋 **Chamada Rápida e Intuitiva:**
-  - ✅ **Eu vou.** (confirma presença)
-  - ❌ **Não vou.** (com chips rápidos de motivos: *"Social + Sede"*, *"Trabalho"*, *"Família"*, etc., além de campo para texto livre)
-  - ⚠️ **Ainda não sei.** (confirmo em breve)
-  - Grava automaticamente no aparelho do irmão para que ele não precise redigitar sempre.
-- 💬 **Exportação Direta para o WhatsApp:**
-  - Botão **"Copiar Lista para WhatsApp"** que copia a mensagem perfeitamente diagramada de acordo com o padrão do INSANOS M.C.
-- 🛡️ **Painel da Diretoria:**
-  - Inclusão/exclusão de irmãos na lista oficial.
-  - Criação de novos eventos para qualquer data do ano.
-
+## 🌐 Publicação em Nuvem (Render / Vercel / GitHub)
+A pasta pronta para publicação direta no GitHub / Render sem pastas pesadas é:
+👉 **`C:\Cois\Issi-Pronto-Para-GitHub`**

@@ -52,17 +52,17 @@ export function InstallAppButton() {
         title="Baixar aplicativo no celular"
         className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white border border-neutral-700 text-xs font-semibold tracking-wide transition shadow-sm"
       >
-        <Smartphone className="w-3.5 h-3.5 text-red-400" />
+        <Smartphone className="w-3.5 h-3.5 text-amber-400" />
         <span className="hidden sm:inline">Baixar</span> App
       </button>
 
       {/* iOS Guide Modal */}
       {showIosGuide && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-sm bg-[#16171d] border border-red-900 rounded-2xl p-5 shadow-2xl biker-border space-y-4">
+          <div className="w-full max-w-sm bg-[#16171d] border border-amber-600/70 rounded-2xl p-5 shadow-2xl biker-border space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-neutral-800">
               <div className="flex items-center gap-2 text-sm font-bold text-white uppercase">
-                <Smartphone className="w-4 h-4 text-red-500" />
+                <Smartphone className="w-4 h-4 text-amber-400" />
                 Como Baixar no iPhone
               </div>
               <button
@@ -76,11 +76,11 @@ export function InstallAppButton() {
             <div className="space-y-3 text-xs text-neutral-300">
               <p>Você pode instalar o app do Insanos na tela do seu iPhone em 2 passos:</p>
               <div className="flex items-start gap-2.5 p-2.5 bg-neutral-900 rounded-lg border border-neutral-800">
-                <span className="w-5 h-5 rounded-full bg-red-950 text-red-400 font-bold flex items-center justify-center flex-shrink-0 text-[11px]">1</span>
+                <span className="w-5 h-5 rounded-full bg-amber-950 text-amber-300 border border-amber-600/60 font-bold flex items-center justify-center flex-shrink-0 text-[11px]">1</span>
                 <span>Toque no botão de <strong>Compartilhar</strong> do Safari (o ícone de quadrado com uma setinha apontando para cima).</span>
               </div>
               <div className="flex items-start gap-2.5 p-2.5 bg-neutral-900 rounded-lg border border-neutral-800">
-                <span className="w-5 h-5 rounded-full bg-red-950 text-red-400 font-bold flex items-center justify-center flex-shrink-0 text-[11px]">2</span>
+                <span className="w-5 h-5 rounded-full bg-amber-950 text-amber-300 border border-amber-600/60 font-bold flex items-center justify-center flex-shrink-0 text-[11px]">2</span>
                 <span>Role para baixo e selecione <strong>"Adicionar à Tela de Início"</strong>.</span>
               </div>
               <p className="text-[11px] text-neutral-400">
@@ -90,7 +90,7 @@ export function InstallAppButton() {
 
             <button
               onClick={() => setShowIosGuide(false)}
-              className="w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold uppercase transition"
+              className="w-full py-2 bg-amber-600 hover:bg-amber-500 text-black rounded-lg text-xs font-extrabold uppercase transition shadow-md shadow-amber-950"
             >
               Entendi!
             </button>
