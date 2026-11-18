@@ -58,6 +58,35 @@ function generateWhatsAppText(event, members) {
   return text;
 }
 
+// Helper function to format WhatsApp event invitation call
+function generateWhatsAppInviteText(event, config = {}) {
+  const club = config.clubName || "INSANOS M.C.";
+  const division = config.division || "DIVISÃO MOGI GUAÇU";
+  const motto = config.motto || "SOMOS DE VERDADE";
+  const dateStr = event.dateFormatted || event.date;
+  const appUrl = "https://insanosmg.onrender.com";
+
+  let text = `☠️ *${club} – ${division}* ☠️\n`;
+  text += `*"${motto}"*\n\n`;
+  text += `📢 *CONVOCAÇÃO OFICIAL DE EVENTO*\n\n`;
+  text += `📌 *Evento:* ${event.title}\n`;
+  if (dateStr) text += `📅 *Data:* ${dateStr}\n`;
+  if (event.time) text += `⏰ *Horário:* ${event.time}\n`;
+  if (event.location) text += `📍 *Local:* ${event.location}\n`;
+  if (event.category) text += `🏷️ *Tipo:* ${event.category}\n`;
+  if (event.description) text += `📝 *Detalhes:* ${event.description}\n`;
+
+  text += `\n━━━━━━━━━━━━━━━━━━━━━\n`;
+  text += `⚡ *ATENÇÃO IRMÃOS:*\n`;
+  text += `Favor confirmarem presença ou ausência (com justificativa) pelo aplicativo ou pelo link:\n\n`;
+  text += `👉 *Confirmar Presença no Link:*\n${appUrl}\n\n`;
+  text += `_(Ou abra diretamente pelo aplicativo no seu celular)_\n`;
+  text += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  text += `☠️ *${club} • ${division}* ☠️`;
+
+  return text;
+}
+
 // ---------------- STATUS ROUTE ---------------- //
 app.get('/api/status', async (req, res) => {
   try {
@@ -574,7 +603,7 @@ app.post('/api/events/:id/attend', async (req, res) => {
   });
 });
 
-// Get formatted WhatsApp message for event
+// Get formatted WhatsApp message for event (Lista de Presença)
 app.get('/api/events/:id/whatsapp', async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const db = await getDb();
@@ -586,6 +615,20 @@ app.get('/api/events/:id/whatsapp', async (req, res) => {
 
   const text = generateWhatsAppText(event, db.members);
   res.json({ whatsappText: text });
+});
+
+// Get formatted WhatsApp invitation text (Convocação com Link do Render)
+app.get('/api/events/:id/whatsapp-invite', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const db = await getDb();
+
+  const event = db.events.find(e => e.id === id);
+  if (!event) {
+    return res.status(404).json({ error: 'Evento não encontrado' });
+  }
+
+  const text = generateWhatsAppInviteText(event, db.config);
+  res.json({ inviteText: text, renderUrl: "https://insanosmg.onrender.com" });
 });
 
 // Serve static frontend in production if built

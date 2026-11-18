@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, XCircle, AlertTriangle, User, Calendar, MapPin, Clock, Send, Sparkles, Check, ChevronDown } from 'lucide-react';
+import { CheckCircle, XCircle, AlertTriangle, User, Calendar, MapPin, Clock, Send, Sparkles, Check, ChevronDown, MessageCircle } from 'lucide-react';
 import { api } from '../services/api';
+import { WhatsAppInviteModal } from './WhatsAppInviteModal';
 
 const QUICK_REASONS = [
   "Social + Sede",
@@ -19,7 +20,8 @@ export function AttendanceView({
   eventDetails, 
   onRefresh,
   onOpenRosterTab,
-  onOpenPhotosTab
+  onOpenPhotosTab,
+  config
 }) {
   const [selectedMemberId, setSelectedMemberId] = useState(() => {
     return localStorage.getItem('insanos_saved_member_id') || '';
@@ -28,6 +30,7 @@ export function AttendanceView({
   const [reason, setReason] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [showInviteModal, setShowInviteModal] = useState(false);
 
   // If selectedMemberId changes, remember in localStorage
   useEffect(() => {
@@ -145,9 +148,20 @@ export function AttendanceView({
             <span className="text-xs font-mono text-amber-400 uppercase tracking-widest font-bold">
               {activeEvent.divisionHeader || "INSANOS M.C. – DIVISÃO MOGI GUAÇU"}
             </span>
-            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-950/80 text-amber-200 border border-amber-600/70 font-mono font-bold">
-              Chamada Oficial
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowInviteModal(true)}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-emerald-200 border border-emerald-700/60 text-xs font-bold transition shadow-sm"
+                title="Convocação para WhatsApp com link do Render"
+              >
+                <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Convocação WhatsApp</span>
+              </button>
+              <span className="text-[11px] px-2.5 py-1 rounded-lg bg-amber-950/80 text-amber-200 border border-amber-600/70 font-mono font-bold">
+                Chamada Oficial
+              </span>
+            </div>
           </div>
 
           <div>
@@ -447,6 +461,14 @@ export function AttendanceView({
           </>
         )}
       </div>
+
+      {/* WhatsApp Convocação Modal */}
+      <WhatsAppInviteModal
+        isOpen={showInviteModal}
+        onClose={() => setShowInviteModal(false)}
+        event={activeEvent}
+        config={config}
+      />
     </div>
   );
 }

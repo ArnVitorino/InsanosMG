@@ -144,6 +144,11 @@ export const api = {
     return res.json();
   },
 
+  getWhatsAppInviteText: async (eventId) => {
+    const res = await fetch(`${API_BASE}/events/${eventId}/whatsapp-invite`);
+    return res.json();
+  },
+
   // Event Photos (Galeria)
   getEventPhotos: async (eventId) => {
     const res = await fetch(`${API_BASE}/events/${eventId}/photos`);

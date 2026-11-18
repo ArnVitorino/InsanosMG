@@ -237,6 +237,7 @@ export function App() {
                   onRefresh={fetchData}
                   onOpenRosterTab={() => setActiveTab('roster')}
                   onOpenPhotosTab={() => setActiveTab('photos')}
+                  config={config}
                 />
               )}
 

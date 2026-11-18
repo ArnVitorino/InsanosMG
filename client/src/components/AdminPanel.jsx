@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldAlert, Plus, Trash2, Edit2, ArrowUp, ArrowDown, Save, Calendar, Users, Settings, Key, Check, X, Database, Cloud, RefreshCw } from 'lucide-react';
+import { ShieldAlert, Plus, Trash2, Edit2, ArrowUp, ArrowDown, Save, Calendar, Users, Settings, Key, Check, X, Database, Cloud, RefreshCw, MessageCircle } from 'lucide-react';
 import { api } from '../services/api';
+import { WhatsAppInviteModal } from './WhatsAppInviteModal';
 
 export function AdminPanel({ 
   events, 
@@ -12,6 +13,7 @@ export function AdminPanel({
   initialDateForNewEvent 
 }) {
   const [activeTab, setActiveTab] = useState('events'); // 'events' | 'members' | 'settings'
+  const [inviteModalEvent, setInviteModalEvent] = useState(null);
 
   // Member Management State
   const [newMemberName, setNewMemberName] = useState('');
@@ -288,7 +290,15 @@ export function AdminPanel({
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 self-end sm:self-auto">
+                <div className="flex flex-wrap items-center gap-2 self-end sm:self-auto">
+                  <button
+                    onClick={() => setInviteModalEvent(ev)}
+                    title="Convocação WhatsApp com Link do Render"
+                    className="p-2 bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 rounded-lg text-xs flex items-center gap-1.5 border border-emerald-700/60 transition shadow-sm font-bold"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Convocação WhatsApp</span>
+                  </button>
                   <button
                     onClick={() => onEditEvent(ev)}
                     className="p-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg text-xs flex items-center gap-1 border border-neutral-700 transition"
@@ -673,6 +683,14 @@ export function AdminPanel({
           </form>
         </div>
       )}
+
+      {/* WhatsApp Convocação Modal */}
+      <WhatsAppInviteModal
+        isOpen={!!inviteModalEvent}
+        onClose={() => setInviteModalEvent(null)}
+        event={inviteModalEvent}
+        config={config}
+      />
     </div>
   );
 }
